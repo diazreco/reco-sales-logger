@@ -353,25 +353,12 @@ function jsonp(url) {
   });
 }
 
-// ── POST via form submit (bypass CORS for writes) ──────
+// ── POST via JSONP (bypass CORS for writes) ───────────
 function postData(payload) {
-  return new Promise((resolve) => {
-    const form = document.createElement('form');
-    form.method = 'POST';
-    form.action = API;
-    form.target = '_blank_post_' + Date.now();
-    const input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = 'payload';
-    input.value = JSON.stringify(payload);
-    form.appendChild(input);
-    // Use fetch with no-cors for fire-and-forget
-    fetch(API, {
-      method: 'POST',
-      mode: 'no-cors',
-      body: JSON.stringify(payload)
-    }).then(() => resolve({success:true})).catch(() => resolve({success:false}));
-  });
+  const action = payload.action;
+  const dataStr = encodeURIComponent(JSON.stringify(payload));
+  const url = API + '?action=' + action + '&data=' + dataStr;
+  return jsonp(url);
 }
 
 // ── INIT ───────────────────────────────────────────────
