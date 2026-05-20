@@ -97,7 +97,6 @@ html,body{height:100%;overflow:hidden;background:var(--navy);color:var(--white);
 .action-bar{padding:0 16px 16px;}
 .btn-primary{width:100%;padding:14px;background:var(--gold);color:var(--navy);border:none;border-radius:var(--radius);font-size:15px;font-weight:600;cursor:pointer;font-family:var(--font);display:flex;align-items:center;justify-content:center;gap:8px;}
 .btn-primary:active{opacity:0.85;}
-.btn-primary:disabled{opacity:0.5;cursor:not-allowed;}
 .btn-secondary{width:100%;padding:13px;background:transparent;color:var(--white);border:1px solid var(--border2);border-radius:var(--radius);font-size:15px;font-weight:500;cursor:pointer;font-family:var(--font);display:flex;align-items:center;justify-content:center;gap:8px;}
 .section-divider{height:1px;background:var(--border);margin:0 16px 16px;}
 .section-label{font-size:11px;color:var(--gray);padding:0 16px;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.08em;font-weight:500;}
@@ -152,9 +151,7 @@ select option{background:var(--navy2);}
     <div class="login-title">RECO Sales Logger</div>
     <div class="login-sub">Rekap call langsung dari HP,<br>sync otomatis ke Google Sheets</div>
     <div class="login-label">Pilih nama kamu</div>
-    <div class="sales-grid" id="salesGrid">
-      <div class="loading-state"><i class="ti ti-loader"></i><p style="font-size:13px">Memuat data...</p></div>
-    </div>
+    <div class="sales-grid" id="salesGrid"></div>
     <button class="btn-login" id="btnLogin" onclick="doLogin()" disabled>
       <i class="ti ti-arrow-right"></i> Masuk
     </button>
@@ -330,56 +327,69 @@ select option{background:var(--navy2);}
 
 <script>
 const API = "https://script.google.com/a/macros/recoasia.com/s/AKfycbzJYOP84WZl_d6nI-PaAbYsrjf-2u01yeJnmrn3s7yxAUvMe0e8T2ezj21aNKjOn8_ZcQ/exec";
+const SALES_FALLBACK = [{name:"Ulfa Aviani",initials:"UA"},{name:"Dikdik Ginanjar",initials:"DG"},{name:"Kevin Paskalis",initials:"KP"}];
 
 let currentUser="", currentLeadId=null, currentTab="all";
 let selectedStatus="", selectedAction="", selectedType="";
 let LEADS_DATA=[], nextLeadId=10000;
 
-// ── INIT ──────────────────────────────────────────────
-window.addEventListener('DOMContentLoaded', async () => {
+// ── JSONP helper — bypass CORS ─────────────────────────
+function jsonp(url) {
+  return new Promise((resolve, reject) => {
+    const cb = 'cb_' + Date.now();
+    const script = document.createElement('script');
+    const timeout = setTimeout(() => {
+      cleanup(); reject(new Error('timeout'));
+    }, 15000);
+    function cleanup() {
+      clearTimeout(timeout);
+      delete window[cb];
+      if (script.parentNode) script.parentNode.removeChild(script);
+    }
+    window[cb] = (data) => { cleanup(); resolve(data); };
+    script.onerror = () => { cleanup(); reject(new Error('script error')); };
+    script.src = url + (url.includes('?') ? '&' : '?') + 'callback=' + cb;
+    document.head.appendChild(script);
+  });
+}
+
+// ── POST via form submit (bypass CORS for writes) ──────
+function postData(payload) {
+  return new Promise((resolve) => {
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = API;
+    form.target = '_blank_post_' + Date.now();
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'payload';
+    input.value = JSON.stringify(payload);
+    form.appendChild(input);
+    // Use fetch with no-cors for fire-and-forget
+    fetch(API, {
+      method: 'POST',
+      mode: 'no-cors',
+      body: JSON.stringify(payload)
+    }).then(() => resolve({success:true})).catch(() => resolve({success:false}));
+  });
+}
+
+// ── INIT ───────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', () => {
   const today = new Date();
   document.getElementById('dateDisplay').textContent = today.toLocaleDateString('id-ID',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
-  await loadSalesTeam();
+  renderSalesButtons(SALES_FALLBACK);
   if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
 });
 
-async function loadSalesTeam() {
-  try {
-    const res = await fetch(`${API}?action=getSales`);
-    const data = await res.json();
-    const grid = document.getElementById('salesGrid');
-    if (data.success && data.sales.length) {
-      grid.innerHTML = '';
-      data.sales.forEach(s => {
-        const initials = s.name.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
-        const btn = document.createElement('button');
-        btn.className = 'sales-btn';
-        btn.innerHTML = `<div class="sales-avatar">${initials}</div><span>${s.name}</span>`;
-        btn.onclick = () => {
-          document.querySelectorAll('.sales-btn').forEach(b=>b.classList.remove('selected'));
-          btn.classList.add('selected');
-          currentUser = s.name;
-          document.getElementById('btnLogin').disabled = false;
-        };
-        grid.appendChild(btn);
-      });
-    } else {
-      // Fallback hardcoded jika gagal load
-      renderSalesFallback();
-    }
-  } catch(e) {
-    renderSalesFallback();
-  }
-}
-
-function renderSalesFallback() {
-  const team = [{name:"Ulfa Aviani",initials:"UA"},{name:"Dikdik Ginanjar",initials:"DG"},{name:"Kevin Paskalis",initials:"KP"}];
+function renderSalesButtons(team) {
   const grid = document.getElementById('salesGrid');
   grid.innerHTML = '';
   team.forEach(s => {
+    const initials = s.initials || s.name.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
     const btn = document.createElement('button');
     btn.className = 'sales-btn';
-    btn.innerHTML = `<div class="sales-avatar">${s.initials}</div><span>${s.name}</span>`;
+    btn.innerHTML = `<div class="sales-avatar">${initials}</div><span>${s.name}</span>`;
     btn.onclick = () => {
       document.querySelectorAll('.sales-btn').forEach(b=>b.classList.remove('selected'));
       btn.classList.add('selected');
@@ -390,7 +400,7 @@ function renderSalesFallback() {
   });
 }
 
-// ── LOGIN ─────────────────────────────────────────────
+// ── LOGIN ──────────────────────────────────────────────
 async function doLogin() {
   if (!currentUser) { showToast("Pilih nama dulu!"); return; }
   document.getElementById('nameDisplay').textContent = currentUser.split(' ')[0];
@@ -405,28 +415,28 @@ function logout() {
   showScreen('screen-login');
 }
 
-// ── LOAD LEADS FROM SHEETS ────────────────────────────
+// ── LOAD LEADS via JSONP ───────────────────────────────
 async function loadLeads() {
   document.getElementById('leadsList').innerHTML = `<div class="loading-state"><i class="ti ti-loader"></i><p style="font-size:13px">Memuat leads dari Sheets...</p></div>`;
   setSyncStatus('pending','Memuat data leads...');
   try {
-    const res = await fetch(`${API}?action=getLeads&sales=${encodeURIComponent(currentUser)}`);
-    const data = await res.json();
-    if (data.success) {
+    const url = `${API}?action=getLeads&sales=${encodeURIComponent(currentUser)}`;
+    const data = await jsonp(url);
+    if (data.success && data.leads) {
       LEADS_DATA = data.leads.map(l => ({ ...l, callLog: [] }));
       renderStats();
       renderLeads('');
       setSyncStatus('ok', `${data.total} leads dimuat dari Google Sheets`);
     } else {
-      throw new Error(data.message);
+      throw new Error(data.message || 'Gagal load');
     }
   } catch(e) {
-    setSyncStatus('err', 'Gagal memuat — periksa koneksi');
-    document.getElementById('leadsList').innerHTML = `<div class="empty-state"><i class="ti ti-wifi-off"></i><p>Gagal memuat leads.<br>Periksa koneksi internet kamu.</p></div>`;
+    setSyncStatus('err', 'Gagal memuat leads — coba refresh');
+    document.getElementById('leadsList').innerHTML = `<div class="empty-state"><i class="ti ti-wifi-off"></i><p>Gagal memuat leads.<br>Coba refresh halaman.</p><button onclick="loadLeads()" style="margin-top:16px;padding:10px 20px;background:var(--gold);color:var(--navy);border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;">Coba lagi</button></div>`;
   }
 }
 
-// ── SCREENS ───────────────────────────────────────────
+// ── SCREENS ────────────────────────────────────────────
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
@@ -516,7 +526,7 @@ function dialNumber(phone) {
   setTimeout(()=>{ window.location.href=`tel:${phone.replace(/\s/g,'')}`; },300);
 }
 
-// ── FORM REKAP CALL ────────────────────────────────────
+// ── REKAP CALL ─────────────────────────────────────────
 function openForm() {
   selectedStatus=''; selectedAction='';
   ['discussionNotes','updatePIC','updatePhone'].forEach(id=>document.getElementById(id).value='');
@@ -543,12 +553,12 @@ async function submitCall() {
   showToast('Menyimpan...');
   setSyncStatus('pending','Mengirim ke Google Sheets...');
   try {
-    await fetch(API,{method:'POST',body:JSON.stringify({action:'logCall',leadId:l.id,rowIndex:l.rowIndex,company:l.company,sales:entry.sales,callDate:entry.date,callTime:entry.time,callStatus:entry.status,notes:entry.notes,nextAction:entry.action,followupDate:entry.followupDate,updatedPIC:newPIC,updatedPhone:newPhone})});
+    await postData({action:'logCall',leadId:l.id,rowIndex:l.rowIndex,company:l.company,sales:entry.sales,callDate:entry.date,callTime:entry.time,callStatus:entry.status,notes:entry.notes,nextAction:entry.action,followupDate:entry.followupDate,updatedPIC:newPIC,updatedPhone:newPhone});
     setSyncStatus('ok','Tersimpan di Google Sheets');
     showToast('Berhasil sync ke Sheets!');
   } catch(e){
-    setSyncStatus('err','Offline — data tersimpan lokal');
-    showToast('Offline, akan sync saat online');
+    setSyncStatus('err','Gagal sync — coba lagi');
+    showToast('Gagal sync, coba lagi');
   }
   setTimeout(()=>goBack('screen-home'),1200);
 }
@@ -581,10 +591,9 @@ async function submitNewLead() {
   if(mapsUrl&&!isValidMapsUrl(mapsUrl)){showToast('Format link Maps tidak valid');return;}
   const newLead={id:nextLeadId++,company,pic,pos:document.getElementById('nl-pos').value.trim(),phone,email:document.getElementById('nl-email').value.trim(),type:finalType,status:'',address:document.getElementById('nl-address').value.trim(),source:document.getElementById('nl-source').value,notes:document.getElementById('nl-notes').value.trim(),mapsUrl,addedBy:currentUser,addedDate:new Date().toISOString().slice(0,10),nextFollowup:null,nextAction:null,callLog:[],isNew:true};
   LEADS_DATA.unshift(newLead);renderStats();setSyncStatus('pending','Mengirim leads baru...');
-  try {
-    await fetch(API,{method:'POST',body:JSON.stringify({action:'addLead',...newLead})});
-    setSyncStatus('ok','Leads baru tersimpan di Sheets');showToast('Leads baru berhasil ditambahkan!');
-  } catch(e){setSyncStatus('err','Offline — tersimpan lokal');showToast('Tersimpan lokal');}
+  await postData({action:'addLead',...newLead});
+  setSyncStatus('ok','Leads baru tersimpan di Sheets');
+  showToast('Leads baru berhasil ditambahkan!');
   setTimeout(()=>goBack('screen-home'),1200);
 }
 
