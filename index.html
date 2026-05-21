@@ -9,7 +9,6 @@
 <meta name="theme-color" content="#0d1b2e">
 <title>RECO Sales Logger</title>
 <link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
@@ -30,137 +29,111 @@ html,body{height:100%;overflow:hidden;background:var(--navy);color:var(--white);
 #app{height:100%;display:flex;flex-direction:column;overflow:hidden;}
 .screen{display:none;flex-direction:column;height:100%;overflow:hidden;}
 .screen.active{display:flex;}
-.scroll-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:calc(80px + var(--safe-bottom));}
+.scroll-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:calc(32px + var(--safe-bottom));}
 .scroll-body::-webkit-scrollbar{display:none;}
-.topbar{display:flex;align-items:center;gap:12px;padding:calc(var(--safe-top) + 12px) 16px 12px;background:var(--navy);border-bottom:1px solid var(--border);flex-shrink:0;}
+.topbar{display:flex;align-items:center;gap:12px;padding:calc(var(--safe-top)+12px) 16px 12px;background:var(--navy);border-bottom:1px solid var(--border);flex-shrink:0;}
 .topbar-title{font-size:17px;font-weight:600;flex:1;}
 .back-btn{width:36px;height:36px;border-radius:50%;background:var(--surface);border:none;cursor:pointer;color:var(--white);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
-.back-btn:active{opacity:0.7;}
-#screen-login{justify-content:center;background:var(--navy);}
-.login-wrap{padding:32px 24px;}
-.logo-mark{width:56px;height:56px;background:linear-gradient(135deg,var(--gold),var(--gold2));border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:var(--navy);margin-bottom:24px;font-family:var(--mono);}
-.login-title{font-size:28px;font-weight:600;margin-bottom:6px;}
-.login-sub{color:var(--gray);font-size:15px;margin-bottom:40px;line-height:1.5;}
-.login-label{font-size:13px;color:var(--gray2);margin-bottom:8px;font-weight:500;letter-spacing:0.03em;}
+#screen-login{justify-content:center;}
+.login-wrap{padding:40px 24px;}
+.logo-mark{width:60px;height:60px;background:linear-gradient(135deg,var(--gold),var(--gold2));border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:700;color:var(--navy);margin-bottom:28px;font-family:var(--mono);}
+.login-title{font-size:30px;font-weight:600;margin-bottom:8px;}
+.login-sub{color:var(--gray);font-size:15px;margin-bottom:44px;line-height:1.5;}
+.login-label{font-size:12px;color:var(--gray2);margin-bottom:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.06em;}
 .sales-grid{display:flex;flex-direction:column;gap:10px;margin-bottom:28px;}
-.sales-btn{display:flex;align-items:center;gap:14px;padding:14px 16px;background:var(--surface);border:1.5px solid var(--border2);border-radius:var(--radius);cursor:pointer;color:var(--white);font-family:var(--font);font-size:15px;font-weight:500;}
-.sales-btn:active,.sales-btn.selected{background:var(--surface2);border-color:var(--gold);}
-.sales-avatar{width:38px;height:38px;border-radius:50%;background:var(--navy3);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:var(--gold);flex-shrink:0;}
+.sales-btn{display:flex;align-items:center;gap:14px;padding:14px 16px;background:var(--surface);border:1.5px solid var(--border2);border-radius:var(--radius);cursor:pointer;color:var(--white);font-family:var(--font);font-size:15px;font-weight:500;width:100%;}
+.sales-btn.selected{background:var(--surface2);border-color:var(--gold);}
+.sales-avatar{width:40px;height:40px;border-radius:50%;background:var(--navy3);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:var(--gold);flex-shrink:0;}
 .btn-login{width:100%;padding:16px;background:var(--gold);color:var(--navy);border:none;border-radius:var(--radius);font-size:16px;font-weight:600;cursor:pointer;font-family:var(--font);display:flex;align-items:center;justify-content:center;gap:8px;}
-.btn-login:active{background:var(--gold2);}
-.btn-login:disabled{opacity:0.5;cursor:not-allowed;}
-.home-header{padding:20px 16px 0;}
-.welcome-text{font-size:22px;font-weight:600;margin-bottom:4px;}
+.btn-login:disabled{opacity:0.4;cursor:not-allowed;}
+.home-header{padding:24px 16px 16px;}
+.welcome-text{font-size:24px;font-weight:600;margin-bottom:4px;}
 .welcome-sub{font-size:14px;color:var(--gray);}
-.stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;padding:16px 16px 0;}
-.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;}
-.stat-label{font-size:12px;color:var(--gray);margin-bottom:6px;font-weight:500;}
-.stat-num{font-size:26px;font-weight:600;color:var(--white);font-family:var(--mono);}
-.stat-card.accent{border-color:rgba(201,168,76,0.3);background:rgba(201,168,76,0.08);}
-.stat-card.accent .stat-num{color:var(--gold);}
-.sync-bar{margin:12px 16px 0;padding:8px 12px;border-radius:var(--radius-sm);display:flex;align-items:center;gap:8px;font-size:12px;font-weight:500;}
-.sync-ok{background:rgba(52,211,153,0.12);color:var(--success);border:1px solid rgba(52,211,153,0.2);}
-.sync-err{background:rgba(248,113,113,0.12);color:var(--danger);border:1px solid rgba(248,113,113,0.2);}
-.sync-pending{background:rgba(139,148,158,0.12);color:var(--gray2);border:1px solid var(--border);}
-.tab-bar{display:flex;margin:16px 16px 0;background:var(--surface);border-radius:var(--radius-sm);padding:3px;gap:2px;}
-.tab{flex:1;padding:8px 4px;text-align:center;font-size:12px;font-weight:500;cursor:pointer;color:var(--gray);border-radius:6px;}
-.tab.active{background:var(--navy3);color:var(--white);}
-.search-wrap{padding:12px 16px 0;position:relative;}
-.search-wrap i{position:absolute;left:28px;top:50%;transform:translateY(-50%);color:var(--gray);font-size:16px;pointer-events:none;margin-top:6px;}
-.search-wrap input{width:100%;padding:10px 14px 10px 38px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--white);font-family:var(--font);font-size:14px;}
-.search-wrap input::placeholder{color:var(--gray);}
-.search-wrap input:focus{outline:none;border-color:var(--border2);}
-.leads-list{padding:10px 16px 0;}
-.lead-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-bottom:8px;cursor:pointer;}
-.lead-card:active{opacity:0.8;border-color:var(--border2);}
-.lead-card-title{font-size:15px;font-weight:600;margin-bottom:3px;}
-.lead-card-sub{font-size:13px;color:var(--gray);margin-bottom:8px;}
-.lead-card-badges{display:flex;flex-wrap:wrap;gap:6px;}
-.badge{font-size:11px;font-weight:500;padding:3px 8px;border-radius:99px;}
-.badge-gray{background:rgba(136,150,165,0.15);color:var(--gray2);}
-.badge-green{background:rgba(52,211,153,0.12);color:var(--success);}
-.badge-amber{background:rgba(251,191,36,0.12);color:var(--warning);}
-.badge-blue{background:rgba(45,212,191,0.12);color:var(--teal);}
-.badge-gold{background:rgba(201,168,76,0.15);color:var(--gold);}
-.fab{position:fixed;bottom:calc(24px + var(--safe-bottom));right:20px;width:56px;height:56px;border-radius:50%;background:var(--gold);color:var(--navy);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:24px;z-index:100;box-shadow:0 4px 20px rgba(201,168,76,0.4);}
-.fab:active{transform:scale(0.92);}
-.contact-card{margin:0 16px 16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;}
-.contact-row{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
-.contact-avatar{width:44px;height:44px;border-radius:50%;background:var(--navy3);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:var(--gold);flex-shrink:0;}
-.contact-name{font-size:16px;font-weight:600;}
-.contact-pos{font-size:13px;color:var(--gray);}
-.btn-dial{display:flex;align-items:center;gap:10px;padding:12px 14px;background:rgba(45,212,191,0.08);border:1px solid rgba(45,212,191,0.2);border-radius:var(--radius-sm);color:var(--teal);font-size:14px;font-weight:500;cursor:pointer;width:100%;margin-bottom:8px;font-family:var(--font);}
-.btn-dial:active{opacity:0.7;}
-.contact-info-row{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--gray2);padding:4px 0;}
-.contact-info-row i{color:var(--gray);margin-top:1px;flex-shrink:0;}
-.btn-maps{display:flex;align-items:center;gap:10px;padding:11px 14px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:var(--radius-sm);color:#f87171;font-size:14px;font-weight:500;text-decoration:none;margin-bottom:8px;}
-.action-bar{padding:0 16px 16px;}
-.btn-primary{width:100%;padding:14px;background:var(--gold);color:var(--navy);border:none;border-radius:var(--radius);font-size:15px;font-weight:600;cursor:pointer;font-family:var(--font);display:flex;align-items:center;justify-content:center;gap:8px;}
-.btn-primary:active{opacity:0.85;}
-.btn-secondary{width:100%;padding:13px;background:transparent;color:var(--white);border:1px solid var(--border2);border-radius:var(--radius);font-size:15px;font-weight:500;cursor:pointer;font-family:var(--font);display:flex;align-items:center;justify-content:center;gap:8px;}
-.section-divider{height:1px;background:var(--border);margin:0 16px 16px;}
-.section-label{font-size:11px;color:var(--gray);padding:0 16px;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.08em;font-weight:500;}
-.log-item{padding:12px 16px;border-bottom:1px solid var(--border);}
-.log-meta{font-size:11px;color:var(--gray);margin-bottom:4px;font-family:var(--mono);}
-.log-status{font-weight:600;color:var(--teal);}
-.log-next{color:var(--gold);}
-.log-note{font-size:13px;color:var(--gray2);}
-.empty-state{text-align:center;padding:40px 20px;color:var(--gray);}
-.empty-state i{font-size:40px;display:block;margin-bottom:10px;opacity:0.4;}
-.empty-state p{font-size:14px;}
-.loading-state{text-align:center;padding:40px 20px;color:var(--gray);}
-.loading-state i{font-size:32px;display:block;margin-bottom:10px;opacity:0.5;animation:spin 1s linear infinite;}
-@keyframes spin{to{transform:rotate(360deg);}}
-.form-section{padding:0 16px;margin-bottom:20px;}
-.form-label{font-size:13px;color:var(--gray2);margin-bottom:6px;display:block;font-weight:500;}
-.form-label .req{color:var(--danger);margin-left:3px;}
-input[type=text],input[type=date],input[type=email],input[type=tel],input[type=url],select,textarea{width:100%;padding:12px 14px;background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--white);font-family:var(--font);font-size:14px;}
-input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold);}
-textarea{resize:none;min-height:80px;line-height:1.5;}
-select option{background:var(--navy2);}
-.status-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
-.status-chip{padding:10px 8px;background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius-sm);font-size:13px;font-weight:500;cursor:pointer;text-align:center;color:var(--gray2);}
-.status-chip.selected{background:rgba(45,212,191,0.1);border-color:var(--teal);color:var(--teal);}
-.action-chips{display:flex;flex-wrap:wrap;gap:8px;}
-.action-chip{padding:8px 14px;background:var(--surface);border:1px solid var(--border2);border-radius:99px;font-size:13px;font-weight:500;cursor:pointer;color:var(--gray2);}
-.action-chip.selected{background:rgba(201,168,76,0.1);border-color:var(--gold);color:var(--gold);}
-.type-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
-.type-chip{padding:10px 8px;background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius-sm);font-size:13px;font-weight:500;cursor:pointer;text-align:center;color:var(--gray2);}
-.type-chip.selected{background:rgba(52,211,153,0.1);border-color:var(--success);color:var(--success);}
-.form-hint{font-size:11px;color:var(--gray);margin-top:5px;display:flex;align-items:center;gap:4px;}
-.loc-wrap{position:relative;}
-.loc-wrap input{padding-right:44px;}
-.loc-paste{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--gray);font-size:18px;cursor:pointer;display:flex;align-items:center;}
-.loc-preview{margin-top:8px;padding:10px 12px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:var(--radius-sm);display:none;align-items:center;gap:10px;}
-.loc-preview.show{display:flex;}
-.loc-preview-text{font-size:12px;color:var(--gray2);flex:1;word-break:break-all;}
-.loc-preview-link{font-size:12px;color:#f87171;font-weight:500;white-space:nowrap;text-decoration:none;}
-.form-gap{height:12px;}
-.toast{position:fixed;bottom:calc(90px + var(--safe-bottom));left:50%;transform:translateX(-50%);background:var(--surface2);border:1px solid var(--border2);color:var(--white);padding:10px 20px;border-radius:99px;font-size:13px;font-weight:500;opacity:0;transition:opacity 0.25s;z-index:999;white-space:nowrap;pointer-events:none;}
+.home-card{margin:0 16px 16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;}
+.btn-big{display:flex;align-items:center;gap:14px;padding:18px 20px;background:var(--gold);color:var(--navy);border:none;border-radius:var(--radius);font-size:16px;font-weight:600;cursor:pointer;font-family:var(--font);width:calc(100% - 32px);margin:0 16px 12px;}
+.btn-big:active{opacity:0.85;}
+.info-box{margin:0 16px;padding:14px 16px;background:rgba(45,212,191,0.06);border:1px solid rgba(45,212,191,0.15);border-radius:var(--radius-sm);font-size:13px;color:var(--gray2);line-height:1.6;}
+.form-body{padding:16px 16px 8px;}
+.field-group{margin-bottom:20px;}
+.field-label{font-size:13px;color:var(--gray2);margin-bottom:7px;display:flex;align-items:center;gap:4px;font-weight:500;}
+.req{color:var(--danger);font-size:12px;margin-left:2px;}
+.opt{font-size:11px;color:var(--gray);font-weight:400;margin-left:4px;}
+.field-hint{font-size:11px;color:var(--gray);margin-top:5px;}
+input[type=text],input[type=email],input[type=tel],input[type=url],textarea{
+  width:100%;padding:13px 14px;background:var(--surface);border:1px solid var(--border2);
+  border-radius:var(--radius-sm);color:var(--white);font-family:var(--font);font-size:14px;line-height:1.4;
+}
+input:focus,textarea:focus{outline:none;border-color:var(--gold);background:var(--surface2);}
+input::placeholder,textarea::placeholder{color:var(--gray);}
+textarea{resize:none;min-height:90px;}
+.chip-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
+.chip-grid.cols3{grid-template-columns:repeat(3,1fr);}
+.chip{padding:11px 8px;background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius-sm);font-size:13px;font-weight:500;cursor:pointer;text-align:center;color:var(--gray2);}
+.chip.sel-teal{background:rgba(45,212,191,0.1);border-color:var(--teal);color:var(--teal);}
+.chip.sel-gold{background:rgba(201,168,76,0.1);border-color:var(--gold);color:var(--gold);}
+.chip.sel-green{background:rgba(52,211,153,0.1);border-color:var(--success);color:var(--success);}
+.chip.sel-red{background:rgba(248,113,113,0.1);border-color:var(--danger);color:var(--danger);}
+.auto-field{padding:13px 14px;background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.2);border-radius:var(--radius-sm);font-size:14px;color:var(--gold);font-weight:500;display:flex;align-items:center;gap:8px;}
+.date-field{padding:13px 14px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.15);border-radius:var(--radius-sm);font-size:14px;color:var(--success);font-weight:500;display:flex;align-items:center;gap:8px;}
+.maps-wrap{position:relative;}
+.maps-wrap input{padding-right:46px;}
+.maps-paste{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--gray);font-size:20px;cursor:pointer;display:flex;align-items:center;}
+.maps-preview{margin-top:8px;padding:10px 12px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:var(--radius-sm);display:none;align-items:center;gap:10px;}
+.maps-preview.show{display:flex;}
+.maps-preview-text{font-size:12px;color:var(--gray2);flex:1;word-break:break-all;}
+.maps-preview-link{font-size:12px;color:#f87171;font-weight:600;white-space:nowrap;text-decoration:none;}
+.section-divider{height:1px;background:var(--border);margin:24px 0 20px;}
+.section-title{font-size:11px;color:var(--gray);text-transform:uppercase;letter-spacing:0.08em;font-weight:600;margin-bottom:16px;}
+
+/* PIC section animasi */
+.pic-section{overflow:hidden;transition:max-height 0.35s ease, opacity 0.3s ease;}
+.pic-section.hidden{max-height:0;opacity:0;pointer-events:none;}
+.pic-section.visible{max-height:2000px;opacity:1;}
+
+/* Status call chips — 3 kolom */
+.status-chips{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+
+.submit-wrap{padding:16px 16px 32px;display:flex;flex-direction:column;gap:10px;}
+.btn-submit{width:100%;padding:16px;background:var(--gold);color:var(--navy);border:none;border-radius:var(--radius);font-size:16px;font-weight:600;cursor:pointer;font-family:var(--font);display:flex;align-items:center;justify-content:center;gap:8px;}
+.btn-submit:active{opacity:0.85;}
+.btn-submit:disabled{opacity:0.5;cursor:not-allowed;}
+.btn-cancel{width:100%;padding:14px;background:transparent;color:var(--white);border:1px solid var(--border2);border-radius:var(--radius);font-size:15px;font-weight:500;cursor:pointer;font-family:var(--font);display:flex;align-items:center;justify-content:center;gap:8px;}
+.toast{position:fixed;bottom:calc(32px + var(--safe-bottom));left:50%;transform:translateX(-50%);background:var(--surface2);border:1px solid var(--border2);color:var(--white);padding:12px 24px;border-radius:99px;font-size:13px;font-weight:500;opacity:0;transition:opacity 0.25s;z-index:999;white-space:nowrap;pointer-events:none;box-shadow:0 4px 20px rgba(0,0,0,0.3);}
 .toast.show{opacity:1;}
-.req-note{font-size:12px;color:var(--gray);padding:0 16px;margin-bottom:16px;}
+.toast.success{background:rgba(52,211,153,0.15);border-color:rgba(52,211,153,0.3);color:var(--success);}
+.toast.error{background:rgba(248,113,113,0.15);border-color:rgba(248,113,113,0.3);color:var(--danger);}
+.spinner{display:inline-block;width:18px;height:18px;border:2px solid rgba(13,27,46,0.3);border-top-color:var(--navy);border-radius:50%;animation:spin 0.8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* Highlight mandatory indicator */
+.pic-mandatory-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:3px 8px;border-radius:99px;background:rgba(248,113,113,0.12);color:var(--danger);border:1px solid rgba(248,113,113,0.2);margin-bottom:12px;}
+.pic-optional-badge{display:none;}
 </style>
 </head>
 <body>
 <div id="app">
 <div id="toast" class="toast"></div>
 
+<!-- LOGIN -->
 <div id="screen-login" class="screen active">
   <div class="login-wrap">
     <div class="logo-mark">R</div>
     <div class="login-title">RECO Sales Logger</div>
-    <div class="login-sub">Rekap call langsung dari HP,<br>sync otomatis ke Google Sheets</div>
+    <div class="login-sub">Input data langsung dari HP,<br>otomatis masuk ke Google Sheets</div>
     <div class="login-label">Pilih nama kamu</div>
-    <div class="sales-grid" id="salesGrid"></div>
+    <div class="sales-grid" id="salesGrid">
+      <div style="text-align:center;padding:20px;color:var(--gray);font-size:14px">Memuat...</div>
+    </div>
     <button class="btn-login" id="btnLogin" onclick="doLogin()" disabled>
       <i class="ti ti-arrow-right"></i> Masuk
     </button>
   </div>
 </div>
 
+<!-- HOME -->
 <div id="screen-home" class="screen">
   <div class="topbar">
-    <div class="topbar-title">Leads</div>
+    <div class="topbar-title">RECO Sales Logger</div>
     <button style="background:none;border:none;cursor:pointer;font-size:12px;color:var(--gray);font-family:var(--font);" onclick="logout()">Ganti akun</button>
   </div>
   <div class="scroll-body">
@@ -168,423 +141,401 @@ select option{background:var(--navy2);}
       <div class="welcome-text">Halo, <span id="nameDisplay"></span> 👋</div>
       <div class="welcome-sub" id="dateDisplay"></div>
     </div>
-    <div class="stat-grid" id="statsGrid"></div>
-    <div id="syncBar"></div>
-    <div class="tab-bar">
-      <div class="tab active" onclick="switchTab('all')">Semua</div>
-      <div class="tab" onclick="switchTab('today')">Hari ini</div>
-      <div class="tab" onclick="switchTab('new')">Belum di-call</div>
+    <div class="home-card">
+      <div style="font-size:12px;color:var(--gray);margin-bottom:4px">Login sebagai</div>
+      <div style="font-size:18px;font-weight:600" id="amDisplay"></div>
+      <div style="font-size:13px;color:var(--gray2);margin-top:4px">Data otomatis tercatat atas nama kamu</div>
     </div>
-    <div class="search-wrap">
-      <i class="ti ti-search"></i>
-      <input type="text" placeholder="Cari perusahaan atau PIC..." oninput="renderLeads(this.value)" id="searchInput">
-    </div>
-    <div class="leads-list" id="leadsList">
-      <div class="loading-state"><i class="ti ti-loader"></i><p style="font-size:13px">Memuat leads...</p></div>
+    <button class="btn-big" onclick="showScreen('screen-form')">
+      <i class="ti ti-plus" style="font-size:22px"></i>
+      <div style="text-align:left">
+        <div>Input Data Baru</div>
+        <div style="font-size:12px;font-weight:400;opacity:0.7">Tambah rekap call ke Google Sheets</div>
+      </div>
+    </button>
+    <div class="info-box">
+      <i class="ti ti-info-circle" style="color:var(--teal)"></i>
+      Untuk <strong>edit atau hapus</strong> data, buka langsung di Google Sheets
     </div>
   </div>
-  <button class="fab" onclick="openNewLead()" aria-label="Tambah leads baru"><i class="ti ti-plus"></i></button>
 </div>
 
-<div id="screen-detail" class="screen">
-  <div class="topbar">
-    <button class="back-btn" onclick="goBack('screen-home')" aria-label="Kembali"><i class="ti ti-arrow-left"></i></button>
-    <div class="topbar-title" id="detailTitle" style="font-size:15px"></div>
-  </div>
-  <div class="scroll-body" id="detailBody"></div>
-</div>
-
+<!-- FORM -->
 <div id="screen-form" class="screen">
   <div class="topbar">
-    <button class="back-btn" onclick="goBack('screen-detail')" aria-label="Kembali"><i class="ti ti-arrow-left"></i></button>
-    <div class="topbar-title">Rekap Call</div>
+    <button class="back-btn" onclick="resetForm();showScreen('screen-home')" aria-label="Kembali"><i class="ti ti-arrow-left"></i></button>
+    <div class="topbar-title">Input Data Baru</div>
   </div>
   <div class="scroll-body">
-    <div style="height:16px"></div>
-    <div class="section-label">Status call</div>
-    <div class="form-section">
-      <div class="status-grid">
-        <div class="status-chip" onclick="pickStatus(this)">Diangkat</div>
-        <div class="status-chip" onclick="pickStatus(this)">Tidak diangkat</div>
-        <div class="status-chip" onclick="pickStatus(this)">Sibuk / nanti</div>
-        <div class="status-chip" onclick="pickStatus(this)">Salah nomor</div>
-        <div class="status-chip" onclick="pickStatus(this)">Tidak relevan</div>
-        <div class="status-chip" onclick="pickStatus(this)">Lainnya</div>
+    <div class="form-body">
+
+      <!-- AUTO FIELDS -->
+      <div class="section-title">Data Otomatis</div>
+      <div class="field-group">
+        <div class="field-label"><i class="ti ti-user-check" style="color:var(--gold)"></i> Account Manager</div>
+        <div class="auto-field"><i class="ti ti-lock"></i><span id="amAutoField"></span></div>
+        <div class="field-hint">Otomatis sesuai nama yang login</div>
       </div>
-    </div>
-    <div class="section-label">Hasil diskusi</div>
-    <div class="form-section">
-      <textarea id="discussionNotes" placeholder="Ringkasan pembicaraan, interest level, keberatan, dll..."></textarea>
-    </div>
-    <div class="section-label">Update kontak (opsional)</div>
-    <div class="form-section">
-      <label class="form-label">Nama PIC baru</label>
-      <input type="text" id="updatePIC" placeholder="Kosongkan jika tidak berubah">
-      <div class="form-gap"></div>
-      <label class="form-label">No. HP baru</label>
-      <input type="tel" id="updatePhone" placeholder="Kosongkan jika tidak berubah">
-    </div>
-    <div class="section-label">Next action</div>
-    <div class="form-section">
-      <label class="form-label" style="margin-bottom:10px">Jenis action</label>
-      <div class="action-chips">
-        <div class="action-chip" onclick="pickAction(this)">Call lagi</div>
-        <div class="action-chip" onclick="pickAction(this)">Kirim email</div>
-        <div class="action-chip" onclick="pickAction(this)">Meeting</div>
-        <div class="action-chip" onclick="pickAction(this)">Survey</div>
-        <div class="action-chip" onclick="pickAction(this)">Kirim penawaran</div>
-        <div class="action-chip" onclick="pickAction(this)">Tidak ada</div>
+      <div class="field-group">
+        <div class="field-label"><i class="ti ti-calendar-check" style="color:var(--success)"></i> Tanggal Follow-up</div>
+        <div class="date-field"><i class="ti ti-calendar"></i><span id="todayDisplay"></span></div>
+        <div class="field-hint">Otomatis terisi tanggal hari ini</div>
       </div>
-      <div id="dateGroup" style="margin-top:12px">
-        <label class="form-label">Tanggal follow-up</label>
-        <input type="date" id="followupDate">
+
+      <div class="section-divider"></div>
+
+      <!-- DATA PERUSAHAAN -->
+      <div class="section-title">Data Perusahaan</div>
+
+      <div class="field-group">
+        <div class="field-label">Company Name <span class="req">*</span></div>
+        <input type="text" id="f-company" placeholder="Nama perusahaan / properti">
       </div>
-    </div>
-    <div class="form-section">
-      <button class="btn-primary" onclick="submitCall()"><i class="ti ti-device-floppy"></i> Simpan & Sync ke Sheets</button>
+
+      <div class="field-group">
+        <div class="field-label">Property Type <span class="req">*</span></div>
+        <div class="chip-grid" id="chips-propertyType"></div>
+        <div id="propertyTypeOtherWrap" style="display:none;margin-top:8px">
+          <input type="text" id="f-propertyTypeOther" placeholder="Ketik tipe properti...">
+        </div>
+      </div>
+
+      <div class="field-group">
+        <div class="field-label">Source <span class="req">*</span></div>
+        <div class="chip-grid" id="chips-source"></div>
+      </div>
+
+      <div class="field-group">
+        <div class="field-label"><i class="ti ti-map-pin" style="color:#f87171"></i> Google Map Link <span class="req">*</span></div>
+        <div class="maps-wrap">
+          <input type="url" id="f-mapsUrl" placeholder="Paste link share.google / maps.app.goo.gl..." oninput="onMapsInput(this.value)">
+          <button class="maps-paste" onclick="pasteClipboard()" aria-label="Paste"><i class="ti ti-clipboard"></i></button>
+        </div>
+        <div class="maps-preview" id="mapsPreview">
+          <div style="color:#f87171;font-size:18px;flex-shrink:0"><i class="ti ti-map-pin"></i></div>
+          <div class="maps-preview-text" id="mapsPreviewText"></div>
+          <a class="maps-preview-link" id="mapsPreviewLink" target="_blank">Buka ↗</a>
+        </div>
+        <div class="field-hint"><i class="ti ti-info-circle"></i> Google Maps → Share → Copy link → paste di sini</div>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <!-- STATUS CALL — dulu sebelum PIC -->
+      <div class="section-title">Hasil Call</div>
+
+      <div class="field-group">
+        <div class="field-label">Status Call <span class="req">*</span></div>
+        <div class="status-chips" id="chips-statusCall">
+          <div class="chip" onclick="pickStatusCall(this,'Diangkat')">Diangkat</div>
+          <div class="chip" onclick="pickStatusCall(this,'Tidak diangkat')">Tidak diangkat</div>
+          <div class="chip" onclick="pickStatusCall(this,'Salah nomor')">Salah nomor</div>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <div class="field-label">Next Action <span class="req">*</span></div>
+        <div class="chip-grid" id="chips-nextAction">
+          <div class="chip" onclick="pickChip(this,'nextAction','sel-gold')">Kirim email</div>
+          <div class="chip" onclick="pickChip(this,'nextAction','sel-gold')">Meeting</div>
+          <div class="chip" onclick="pickChip(this,'nextAction','sel-gold')">Survey</div>
+          <div class="chip" onclick="pickChip(this,'nextAction','sel-gold')">Tidak ada</div>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <div class="field-label">Catatan Diskusi <span class="opt">(opsional)</span></div>
+        <textarea id="f-catatan" placeholder="Ringkasan pembicaraan, interest level, keberatan, dll..."></textarea>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <!-- DATA PIC — muncul hanya kalau Diangkat -->
+      <div class="pic-section hidden" id="picSection">
+        <div class="section-title">Data Kontak PIC</div>
+        <div id="picMandatoryBadge" class="pic-mandatory-badge">
+          <i class="ti ti-alert-circle"></i> Wajib diisi karena status: Diangkat
+        </div>
+
+        <div class="field-group">
+          <div class="field-label">PIC Name <span class="req" id="picReq1">*</span></div>
+          <input type="text" id="f-picName" placeholder="Nama orang yang dihubungi">
+        </div>
+        <div class="field-group">
+          <div class="field-label">PIC Position <span class="req" id="picReq2">*</span></div>
+          <input type="text" id="f-picPosition" placeholder="Purchasing Manager, HK Manager, dll">
+        </div>
+        <div class="field-group">
+          <div class="field-label">PIC Contact (Phone Number) <span class="req" id="picReq3">*</span></div>
+          <input type="tel" id="f-picPhone" placeholder="62 8xx-xxxx-xxxx">
+        </div>
+        <div class="field-group">
+          <div class="field-label">PIC Contact (Email) <span class="req" id="picReq4">*</span></div>
+          <input type="email" id="f-picEmail" placeholder="email@perusahaan.com">
+          <div class="field-hint">Isi "-" jika tidak ada email</div>
+        </div>
+      </div>
+
+    </div><!-- form-body -->
+
+    <div class="submit-wrap">
+      <button class="btn-submit" id="btnSubmit" onclick="submitForm()">
+        <i class="ti ti-send"></i> Simpan ke Google Sheets
+      </button>
+      <button class="btn-cancel" onclick="resetForm();showScreen('screen-home')">Batal</button>
     </div>
   </div>
 </div>
 
-<div id="screen-new-lead" class="screen">
-  <div class="topbar">
-    <button class="back-btn" onclick="goBack('screen-home')" aria-label="Kembali"><i class="ti ti-arrow-left"></i></button>
-    <div class="topbar-title">Leads Baru</div>
-  </div>
-  <div class="scroll-body">
-    <div style="height:12px"></div>
-    <div class="req-note"><span style="color:var(--danger)">*</span> wajib diisi</div>
-    <div class="section-label">Data perusahaan</div>
-    <div class="form-section">
-      <label class="form-label">Nama perusahaan <span class="req">*</span></label>
-      <input type="text" id="nl-company" placeholder="PT / CV / nama properti">
-    </div>
-    <div class="form-section">
-      <label class="form-label">Tipe properti <span class="req">*</span></label>
-      <div class="type-grid">
-        <div class="type-chip" onclick="pickType(this)">Hotel</div>
-        <div class="type-chip" onclick="pickType(this)">Mall</div>
-        <div class="type-chip" onclick="pickType(this)">Office Building</div>
-        <div class="type-chip" onclick="pickType(this)">Apartemen</div>
-        <div class="type-chip" onclick="pickType(this)">Rumah Sakit</div>
-        <div class="type-chip" onclick="pickType(this)">Lainnya</div>
-      </div>
-    </div>
-    <div class="form-section" id="typeOtherGroup" style="display:none">
-      <label class="form-label">Tipe lainnya</label>
-      <input type="text" id="nl-type-other" placeholder="Sebutkan tipe properti">
-    </div>
-    <div class="form-section">
-      <label class="form-label">Alamat operasional</label>
-      <textarea id="nl-address" placeholder="Jl. Sudirman No. 1, Jakarta Pusat..." style="min-height:60px"></textarea>
-    </div>
-    <div class="form-section">
-      <label class="form-label"><i class="ti ti-map-pin" style="margin-right:4px"></i>Lokasi Google Maps</label>
-      <div class="loc-wrap">
-        <input type="url" id="nl-maps" placeholder="Paste link share.google di sini..." oninput="onMapsInput(this.value)">
-        <button class="loc-paste" onclick="pasteClipboard()" aria-label="Paste"><i class="ti ti-clipboard"></i></button>
-      </div>
-      <div class="form-hint"><i class="ti ti-info-circle"></i> Google Maps → Share → Copy link</div>
-      <div class="loc-preview" id="locPreview">
-        <div style="color:#f87171;font-size:16px"><i class="ti ti-map-pin"></i></div>
-        <div class="loc-preview-text" id="locPreviewText"></div>
-        <a class="loc-preview-link" id="locPreviewLink" target="_blank">Buka ↗</a>
-      </div>
-    </div>
-    <div class="section-label">Data kontak PIC</div>
-    <div class="form-section">
-      <label class="form-label">Nama PIC <span class="req">*</span></label>
-      <input type="text" id="nl-pic" placeholder="Nama orang yang dihubungi">
-      <div class="form-gap"></div>
-      <label class="form-label">Jabatan</label>
-      <input type="text" id="nl-pos" placeholder="Purchasing Manager, dll">
-      <div class="form-gap"></div>
-      <label class="form-label">No. HP / WhatsApp <span class="req">*</span></label>
-      <input type="tel" id="nl-phone" placeholder="62 8xx-xxxx-xxxx">
-      <div class="form-gap"></div>
-      <label class="form-label">Email</label>
-      <input type="email" id="nl-email" placeholder="email@perusahaan.com">
-    </div>
-    <div class="section-label">Info tambahan</div>
-    <div class="form-section">
-      <label class="form-label">Sumber leads</label>
-      <select id="nl-source">
-        <option value="">-- Pilih sumber --</option>
-        <option>Referral</option><option>Cold call</option><option>Google Maps</option>
-        <option>LinkedIn</option><option>Event / pameran</option><option>Lainnya</option>
-      </select>
-      <div class="form-gap"></div>
-      <label class="form-label">Catatan awal</label>
-      <textarea id="nl-notes" placeholder="Info awal tentang leads ini..."></textarea>
-    </div>
-    <div class="form-section" style="display:flex;flex-direction:column;gap:10px">
-      <button class="btn-primary" onclick="submitNewLead()"><i class="ti ti-circle-plus"></i> Simpan Leads Baru</button>
-      <button class="btn-secondary" onclick="goBack('screen-home')">Batal</button>
-    </div>
-  </div>
-</div>
 </div>
 
 <script>
 const API = "https://script.google.com/a/macros/recoasia.com/s/AKfycbzJYOP84WZl_d6nI-PaAbYsrjf-2u01yeJnmrn3s7yxAUvMe0e8T2ezj21aNKjOn8_ZcQ/exec";
-const SALES_FALLBACK = [{name:"Ulfa Aviani",initials:"UA"},{name:"Dikdik Ginanjar",initials:"DG"},{name:"Kevin Paskalis",initials:"KP"}];
 
-let currentUser="", currentLeadId=null, currentTab="all";
-let selectedStatus="", selectedAction="", selectedType="";
-let LEADS_DATA=[], nextLeadId=10000;
+const SALES_FALLBACK = ["Ulfa Aviani","Dikdik Ginanjar","Kevin Paskalis"];
+const PROPERTY_TYPES = ["Hotel","Mall","Office Building","Apartemen","Rumah Sakit","School/Univ","Biz/Ent District","Lainnya"];
+const SOURCES = ["Outbound","Inbound","Referral / Channel","Google","LinkedIn","Event / Pameran","Lainnya"];
 
-// ── JSONP helper — bypass CORS ─────────────────────────
+let currentUser = "";
+let selected = { propertyType:"", source:"", statusCall:"", nextAction:"" };
+
+// ── JSONP ─────────────────────────────────────────────
 function jsonp(url) {
   return new Promise((resolve, reject) => {
-    const cb = 'cb_' + Date.now();
+    const cb = 'cb_' + Date.now() + '_' + Math.random().toString(36).slice(2);
     const script = document.createElement('script');
-    const timeout = setTimeout(() => {
-      cleanup(); reject(new Error('timeout'));
-    }, 15000);
-    function cleanup() {
-      clearTimeout(timeout);
-      delete window[cb];
-      if (script.parentNode) script.parentNode.removeChild(script);
-    }
+    const to = setTimeout(() => { cleanup(); reject(new Error('timeout')); }, 15000);
+    function cleanup() { clearTimeout(to); delete window[cb]; if(script.parentNode) script.parentNode.removeChild(script); }
     window[cb] = (data) => { cleanup(); resolve(data); };
-    script.onerror = () => { cleanup(); reject(new Error('script error')); };
-    script.src = url + (url.includes('?') ? '&' : '?') + 'callback=' + cb;
+    script.onerror = () => { cleanup(); reject(new Error('error')); };
+    script.src = url + (url.includes('?')?'&':'?') + 'callback=' + cb;
     document.head.appendChild(script);
   });
 }
 
-// ── POST via JSONP (bypass CORS for writes) ───────────
-function postData(payload) {
-  const action = payload.action;
-  const dataStr = encodeURIComponent(JSON.stringify(payload));
-  const url = API + '?action=' + action + '&data=' + dataStr;
-  return jsonp(url);
-}
-
-// ── INIT ───────────────────────────────────────────────
-window.addEventListener('DOMContentLoaded', () => {
+// ── INIT ──────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', async () => {
   const today = new Date();
-  document.getElementById('dateDisplay').textContent = today.toLocaleDateString('id-ID',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
-  renderSalesButtons(SALES_FALLBACK);
+  const opts = {weekday:'long',year:'numeric',month:'long',day:'numeric'};
+  const todayStr = today.toLocaleDateString('id-ID', opts);
+  document.getElementById('dateDisplay').textContent = todayStr;
+  document.getElementById('todayDisplay').textContent = todayStr;
+
+  // Render chip property type & source dari konstanta
+  renderChipList('chips-propertyType', PROPERTY_TYPES, 'propertyType', 'sel-green', onPropertyTypeChip);
+  renderChipList('chips-source', SOURCES, 'source', 'sel-teal');
+
+  // Load sales dari Apps Script
+  try {
+    const data = await jsonp(API + '?action=getConfig');
+    if (data.success && data.sales) renderSalesButtons(data.sales);
+    else renderSalesButtons(SALES_FALLBACK);
+  } catch(e) { renderSalesButtons(SALES_FALLBACK); }
+
   if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
 });
 
 function renderSalesButtons(team) {
   const grid = document.getElementById('salesGrid');
   grid.innerHTML = '';
-  team.forEach(s => {
-    const initials = s.initials || s.name.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
+  team.forEach(name => {
+    const initials = name.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
     const btn = document.createElement('button');
     btn.className = 'sales-btn';
-    btn.innerHTML = `<div class="sales-avatar">${initials}</div><span>${s.name}</span>`;
+    btn.innerHTML = `<div class="sales-avatar">${initials}</div><span>${name}</span>`;
     btn.onclick = () => {
       document.querySelectorAll('.sales-btn').forEach(b=>b.classList.remove('selected'));
       btn.classList.add('selected');
-      currentUser = s.name;
+      currentUser = name;
       document.getElementById('btnLogin').disabled = false;
     };
     grid.appendChild(btn);
   });
 }
 
-// ── LOGIN ──────────────────────────────────────────────
-async function doLogin() {
+function renderChipList(containerId, items, key, selClass, customHandler) {
+  const el = document.getElementById(containerId);
+  el.innerHTML = '';
+  items.forEach(item => {
+    const div = document.createElement('div');
+    div.className = 'chip';
+    div.textContent = item;
+    div.onclick = customHandler
+      ? () => customHandler(div, item)
+      : () => pickChip(div, key, selClass);
+    el.appendChild(div);
+  });
+}
+
+// ── CHIP HANDLERS ─────────────────────────────────────
+function pickChip(el, key, selClass) {
+  const container = el.parentElement;
+  container.querySelectorAll('.chip').forEach(c => c.className = 'chip');
+  el.classList.add(selClass);
+  selected[key] = el.textContent.trim();
+}
+
+function onPropertyTypeChip(el, value) {
+  const container = el.parentElement;
+  container.querySelectorAll('.chip').forEach(c => c.className = 'chip');
+  el.classList.add('sel-green');
+  selected.propertyType = value;
+  // Tampilkan field "Lainnya" jika dipilih
+  const otherWrap = document.getElementById('propertyTypeOtherWrap');
+  otherWrap.style.display = value === 'Lainnya' ? 'block' : 'none';
+  if (value !== 'Lainnya') document.getElementById('f-propertyTypeOther').value = '';
+}
+
+function pickStatusCall(el, value) {
+  document.querySelectorAll('#chips-statusCall .chip').forEach(c => c.className = 'chip');
+  selected.statusCall = value;
+
+  const picSection = document.getElementById('picSection');
+
+  if (value === 'Diangkat') {
+    el.classList.add('sel-teal');
+    // Tampilkan PIC section
+    picSection.classList.remove('hidden');
+    picSection.classList.add('visible');
+  } else {
+    // Tidak diangkat / Salah nomor — sembunyikan PIC
+    if (value === 'Tidak diangkat') el.classList.add('sel-gold');
+    else el.classList.add('sel-red');
+    picSection.classList.remove('visible');
+    picSection.classList.add('hidden');
+    // Clear PIC fields
+    ['f-picName','f-picPosition','f-picPhone','f-picEmail'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+  }
+}
+
+// ── LOGIN ─────────────────────────────────────────────
+function doLogin() {
   if (!currentUser) { showToast("Pilih nama dulu!"); return; }
   document.getElementById('nameDisplay').textContent = currentUser.split(' ')[0];
+  document.getElementById('amDisplay').textContent = currentUser;
+  document.getElementById('amAutoField').textContent = currentUser;
   showScreen('screen-home');
-  await loadLeads();
 }
 
 function logout() {
-  currentUser=""; LEADS_DATA=[];
+  currentUser = '';
   document.querySelectorAll('.sales-btn').forEach(b=>b.classList.remove('selected'));
   document.getElementById('btnLogin').disabled = true;
   showScreen('screen-login');
 }
 
-// ── LOAD LEADS via JSONP ───────────────────────────────
-async function loadLeads() {
-  document.getElementById('leadsList').innerHTML = `<div class="loading-state"><i class="ti ti-loader"></i><p style="font-size:13px">Memuat leads dari Sheets...</p></div>`;
-  setSyncStatus('pending','Memuat data leads...');
-  try {
-    const url = `${API}?action=getLeads&sales=${encodeURIComponent(currentUser)}`;
-    const data = await jsonp(url);
-    if (data.success && data.leads) {
-      LEADS_DATA = data.leads.map(l => ({ ...l, callLog: [] }));
-      renderStats();
-      renderLeads('');
-      setSyncStatus('ok', `${data.total} leads dimuat dari Google Sheets`);
-    } else {
-      throw new Error(data.message || 'Gagal load');
-    }
-  } catch(e) {
-    setSyncStatus('err', 'Gagal memuat leads — coba refresh');
-    document.getElementById('leadsList').innerHTML = `<div class="empty-state"><i class="ti ti-wifi-off"></i><p>Gagal memuat leads.<br>Coba refresh halaman.</p><button onclick="loadLeads()" style="margin-top:16px;padding:10px 20px;background:var(--gold);color:var(--navy);border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;">Coba lagi</button></div>`;
-  }
-}
-
-// ── SCREENS ────────────────────────────────────────────
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   window.scrollTo(0,0);
 }
-function goBack(to) {
-  showScreen(to);
-  if(to==='screen-home') renderLeads(document.getElementById('searchInput').value||'');
+
+// ── MAPS ──────────────────────────────────────────────
+function isValidMapsUrl(url) {
+  return url && (url.includes('share.google') || url.includes('maps.app.goo.gl') || url.includes('maps.google.com') || url.includes('goo.gl/maps') || url.includes('google.com/maps'));
 }
-
-function setSyncStatus(type, msg) {
-  const icons={ok:'ti-cloud-check',err:'ti-cloud-off',pending:'ti-cloud-upload'};
-  document.getElementById('syncBar').innerHTML=`<div class="sync-bar sync-${type}"><i class="ti ${icons[type]}"></i>${msg}</div>`;
+function onMapsInput(val) {
+  const p=document.getElementById('mapsPreview'),pt=document.getElementById('mapsPreviewText'),pl=document.getElementById('mapsPreviewLink');
+  if(isValidMapsUrl(val.trim())){pt.textContent=val.length>50?val.slice(0,50)+'…':val;pl.href=val.trim();p.classList.add('show');}
+  else{p.classList.remove('show');}
 }
-
-// ── STATS + LEADS ──────────────────────────────────────
-function renderStats() {
-  const total=LEADS_DATA.length, called=LEADS_DATA.filter(l=>l.callLog.length>0).length;
-  const today=new Date().toISOString().slice(0,10), due=LEADS_DATA.filter(l=>l.nextFollowup===today).length;
-  const surveyed=LEADS_DATA.filter(l=>l.status==='Surveyed').length;
-  document.getElementById('statsGrid').innerHTML=`
-    <div class="stat-card"><div class="stat-label">Total leads</div><div class="stat-num">${total}</div></div>
-    <div class="stat-card accent"><div class="stat-label">Follow-up hari ini</div><div class="stat-num">${due}</div></div>
-    <div class="stat-card"><div class="stat-label">Sudah di-call</div><div class="stat-num">${called}</div></div>
-    <div class="stat-card"><div class="stat-label">Surveyed</div><div class="stat-num">${surveyed}</div></div>`;
-}
-
-function switchTab(tab) {
-  currentTab=tab;
-  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',['all','today','new'][i]===tab));
-  renderLeads(document.getElementById('searchInput').value||'');
-}
-
-function renderLeads(q) {
-  const today=new Date().toISOString().slice(0,10);
-  let list=LEADS_DATA;
-  if(currentTab==='today') list=list.filter(l=>l.nextFollowup===today);
-  if(currentTab==='new')   list=list.filter(l=>l.callLog.length===0);
-  if(q) list=list.filter(l=>l.company.toLowerCase().includes(q.toLowerCase())||(l.pic||'').toLowerCase().includes(q.toLowerCase()));
-  const el=document.getElementById('leadsList');
-  if(!list.length){el.innerHTML=`<div class="empty-state"><i class="ti ti-inbox"></i><p>Tidak ada leads ditemukan</p></div>`;return;}
-  el.innerHTML=list.map(l=>{
-    const last=l.callLog.length?`<span class="badge badge-blue">Last: ${l.callLog[l.callLog.length-1].date}</span>`:`<span class="badge badge-gray">Belum di-call</span>`;
-    const st=l.status==='Surveyed'?`<span class="badge badge-green">Surveyed</span>`:l.status?`<span class="badge badge-amber">${l.status}</span>`:'';
-    const due=l.nextFollowup===today?`<span class="badge badge-gold">Follow-up hari ini</span>`:'';
-    const isNew=l.isNew?`<span class="badge badge-green">Baru</span>`:'';
-    const maps=l.mapsUrl?`<span class="badge badge-gray"><i class="ti ti-map-pin" style="font-size:10px"></i></span>`:'';
-    return `<div class="lead-card" onclick="openDetail(${l.id})">
-      <div class="lead-card-title">${l.company}</div>
-      <div class="lead-card-sub">${l.pic||'—'} · ${l.type}</div>
-      <div class="lead-card-badges">${last}${st}${due}${isNew}${maps}</div>
-    </div>`;
-  }).join('');
-}
-
-// ── DETAIL ─────────────────────────────────────────────
-function openDetail(id) {
-  currentLeadId=id;
-  const l=LEADS_DATA.find(x=>x.id===id);
-  document.getElementById('detailTitle').textContent=l.company;
-  const logs=l.callLog.length?l.callLog.slice().reverse().map(c=>`
-    <div class="log-item">
-      <div class="log-meta">${c.date} · ${c.time} · <span class="log-status">${c.status}</span>${c.action&&c.action!=='Tidak ada'?` · <span class="log-next">${c.action}</span>`:''}</div>
-      <div class="log-note">${c.notes||'<em style="opacity:0.5">Tidak ada catatan</em>'}</div>
-    </div>`).join(''):`<div class="empty-state" style="padding:24px 20px"><i class="ti ti-phone-off" style="font-size:28px"></i><p>Belum ada riwayat call</p></div>`;
-  const mapsBtn=l.mapsUrl?`<a href="${l.mapsUrl}" target="_blank" class="btn-maps"><i class="ti ti-map-pin"></i> Buka di Google Maps ↗</a>`:'';
-  document.getElementById('detailBody').innerHTML=`
-    <div class="contact-card">
-      <div class="contact-row">
-        <div class="contact-avatar">${(l.pic||'?').split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase()}</div>
-        <div><div class="contact-name">${l.pic||'—'}</div><div class="contact-pos">${l.pos||''}</div></div>
-      </div>
-      <button class="btn-dial" onclick="dialNumber('${l.phone}')"><i class="ti ti-phone"></i>${l.phone||'No HP tidak tersedia'}</button>
-      ${l.email?`<div class="contact-info-row"><i class="ti ti-mail"></i><span>${l.email}</span></div>`:''}
-      ${mapsBtn}
-      ${l.address?`<div class="contact-info-row"><i class="ti ti-map"></i><span>${l.address}</span></div>`:''}
-      ${l.notes?`<div class="contact-info-row" style="margin-top:6px"><i class="ti ti-note"></i><span>${l.notes}</span></div>`:''}
-    </div>
-    <div class="action-bar"><button class="btn-primary" onclick="openForm()"><i class="ti ti-phone-plus"></i> Rekap Call</button></div>
-    <div class="section-divider"></div>
-    <div class="section-label">Riwayat call</div>${logs}`;
-  showScreen('screen-detail');
-}
-
-function dialNumber(phone) {
-  showToast('Membuka dialer...');
-  setTimeout(()=>{ window.location.href=`tel:${phone.replace(/\s/g,'')}`; },300);
-}
-
-// ── REKAP CALL ─────────────────────────────────────────
-function openForm() {
-  selectedStatus=''; selectedAction='';
-  ['discussionNotes','updatePIC','updatePhone'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('followupDate').value=new Date().toISOString().slice(0,10);
-  document.querySelectorAll('.status-chip,.action-chip').forEach(c=>c.classList.remove('selected'));
-  document.getElementById('dateGroup').style.display='block';
-  showScreen('screen-form');
-}
-
-function pickStatus(el){document.querySelectorAll('.status-chip').forEach(c=>c.classList.remove('selected'));el.classList.add('selected');selectedStatus=el.textContent.trim();}
-function pickAction(el){document.querySelectorAll('.action-chip').forEach(c=>c.classList.remove('selected'));el.classList.add('selected');selectedAction=el.textContent.trim();document.getElementById('dateGroup').style.display=selectedAction==='Tidak ada'?'none':'block';}
-
-async function submitCall() {
-  if(!selectedStatus){showToast('Pilih status call dulu!');return;}
-  const l=LEADS_DATA.find(x=>x.id===currentLeadId);
-  const now=new Date();
-  const entry={date:now.toISOString().slice(0,10),time:now.toTimeString().slice(0,5),sales:currentUser,status:selectedStatus,notes:document.getElementById('discussionNotes').value,action:selectedAction,followupDate:document.getElementById('followupDate').value};
-  const newPIC=document.getElementById('updatePIC').value, newPhone=document.getElementById('updatePhone').value;
-  if(newPIC) l.pic=newPIC;
-  if(newPhone) l.phone=newPhone;
-  l.callLog.push(entry);
-  if(selectedAction&&selectedAction!=='Tidak ada'){l.nextFollowup=entry.followupDate;l.nextAction=selectedAction;}
-  renderStats();
-  showToast('Menyimpan...');
-  setSyncStatus('pending','Mengirim ke Google Sheets...');
+async function pasteClipboard() {
   try {
-    await postData({action:'logCall',leadId:l.id,rowIndex:l.rowIndex,company:l.company,sales:entry.sales,callDate:entry.date,callTime:entry.time,callStatus:entry.status,notes:entry.notes,nextAction:entry.action,followupDate:entry.followupDate,updatedPIC:newPIC,updatedPhone:newPhone});
-    setSyncStatus('ok','Tersimpan di Google Sheets');
-    showToast('Berhasil sync ke Sheets!');
-  } catch(e){
-    setSyncStatus('err','Gagal sync — coba lagi');
-    showToast('Gagal sync, coba lagi');
+    const t = await navigator.clipboard.readText();
+    document.getElementById('f-mapsUrl').value = t;
+    onMapsInput(t);
+    showToast(isValidMapsUrl(t) ? 'Link Maps berhasil di-paste!' : 'Bukan link Google Maps');
+  } catch(e) { showToast('Izinkan akses clipboard di browser'); }
+}
+
+// ── SUBMIT ────────────────────────────────────────────
+async function submitForm() {
+  const company    = document.getElementById('f-company').value.trim();
+  const mapsUrl    = document.getElementById('f-mapsUrl').value.trim();
+  const catatan    = document.getElementById('f-catatan').value.trim();
+  const propOther  = document.getElementById('f-propertyTypeOther').value.trim();
+  const finalType  = selected.propertyType === 'Lainnya' ? propOther : selected.propertyType;
+
+  // Validasi wajib umum
+  if (!company)               { showToast('Company Name wajib diisi!','error'); return; }
+  if (!finalType)             { showToast(selected.propertyType==='Lainnya'?'Ketik tipe properti!':'Pilih Property Type!','error'); return; }
+  if (!selected.source)       { showToast('Pilih Source!','error'); return; }
+  if (!mapsUrl)               { showToast('Google Map Link wajib diisi!','error'); return; }
+  if (!isValidMapsUrl(mapsUrl)){ showToast('Format link Maps tidak valid!','error'); return; }
+  if (!selected.statusCall)   { showToast('Pilih Status Call!','error'); return; }
+  if (!selected.nextAction)   { showToast('Pilih Next Action!','error'); return; }
+
+  // Validasi PIC — hanya kalau Diangkat
+  let picName='', picPosition='', picPhone='', picEmail='';
+  if (selected.statusCall === 'Diangkat') {
+    picName     = document.getElementById('f-picName').value.trim();
+    picPosition = document.getElementById('f-picPosition').value.trim();
+    picPhone    = document.getElementById('f-picPhone').value.trim();
+    picEmail    = document.getElementById('f-picEmail').value.trim();
+    if (!picName)     { showToast('PIC Name wajib diisi!','error'); return; }
+    if (!picPosition) { showToast('PIC Position wajib diisi!','error'); return; }
+    if (!picPhone)    { showToast('PIC Phone wajib diisi!','error'); return; }
+    if (!picEmail)    { showToast('PIC Email wajib diisi! (isi "-" jika tidak ada)','error'); return; }
   }
-  setTimeout(()=>goBack('screen-home'),1200);
+
+  // Kirim
+  const btn = document.getElementById('btnSubmit');
+  btn.disabled = true;
+  btn.innerHTML = '<div class="spinner"></div> Menyimpan...';
+
+  const payload = {
+    accountManager: currentUser,
+    companyName:    company,
+    propertyType:   finalType,
+    source:         selected.source,
+    googleMapLink:  mapsUrl,
+    picName,
+    picPosition,
+    picPhone,
+    picEmail,
+    statusCall:     selected.statusCall,
+    nextAction:     selected.nextAction,
+    catatanDiskusi: catatan
+  };
+
+  try {
+    const dataStr = encodeURIComponent(JSON.stringify(payload));
+    const result  = await jsonp(`${API}?action=addRow&data=${dataStr}`);
+    if (result.success) {
+      showToast('✓ Data berhasil disimpan ke Sheets!','success');
+      resetForm();
+      setTimeout(() => showScreen('screen-home'), 1500);
+    } else {
+      throw new Error(result.error || 'Gagal simpan');
+    }
+  } catch(e) {
+    showToast('Gagal menyimpan — coba lagi','error');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="ti ti-send"></i> Simpan ke Google Sheets';
+  }
 }
 
-// ── TAMBAH LEADS BARU ──────────────────────────────────
-function isValidMapsUrl(url){return url&&(url.includes('share.google')||url.includes('maps.app.goo.gl')||url.includes('maps.google.com')||url.includes('goo.gl/maps')||url.includes('google.com/maps'));}
-function onMapsInput(val){const p=document.getElementById('locPreview'),pt=document.getElementById('locPreviewText'),pl=document.getElementById('locPreviewLink');if(isValidMapsUrl(val.trim())){pt.textContent=val.length>45?val.slice(0,45)+'…':val;pl.href=val.trim();p.classList.add('show');}else{p.classList.remove('show');}}
-async function pasteClipboard(){try{const t=await navigator.clipboard.readText();document.getElementById('nl-maps').value=t;onMapsInput(t);showToast(isValidMapsUrl(t)?'Link Maps di-paste!':'Bukan link Maps');}catch(e){showToast('Izinkan akses clipboard');}}
-
-function openNewLead() {
-  selectedType='';
-  document.querySelectorAll('.type-chip').forEach(c=>c.classList.remove('selected'));
-  ['nl-company','nl-pic','nl-pos','nl-phone','nl-email','nl-address','nl-maps','nl-notes','nl-type-other'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
-  document.getElementById('nl-source').value='';
-  document.getElementById('typeOtherGroup').style.display='none';
-  document.getElementById('locPreview').classList.remove('show');
-  showScreen('screen-new-lead');
+// ── RESET ─────────────────────────────────────────────
+function resetForm() {
+  ['f-company','f-mapsUrl','f-picName','f-picPosition','f-picPhone','f-picEmail','f-catatan','f-propertyTypeOther']
+    .forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
+  selected = { propertyType:"", source:"", statusCall:"", nextAction:"" };
+  document.querySelectorAll('.chip').forEach(c => c.className='chip');
+  document.getElementById('mapsPreview').classList.remove('show');
+  document.getElementById('propertyTypeOtherWrap').style.display = 'none';
+  document.getElementById('picSection').className = 'pic-section hidden';
 }
 
-function pickType(el){document.querySelectorAll('.type-chip').forEach(c=>c.classList.remove('selected'));el.classList.add('selected');selectedType=el.textContent.trim();document.getElementById('typeOtherGroup').style.display=selectedType==='Lainnya'?'block':'none';}
-
-async function submitNewLead() {
-  const company=document.getElementById('nl-company').value.trim(),pic=document.getElementById('nl-pic').value.trim(),phone=document.getElementById('nl-phone').value.trim();
-  const typeOther=document.getElementById('nl-type-other').value.trim(),finalType=selectedType==='Lainnya'?typeOther:selectedType;
-  const mapsUrl=document.getElementById('nl-maps').value.trim();
-  if(!company){showToast('Nama perusahaan wajib diisi!');return;}
-  if(!finalType){showToast('Pilih tipe properti dulu!');return;}
-  if(!pic){showToast('Nama PIC wajib diisi!');return;}
-  if(!phone){showToast('No. HP wajib diisi!');return;}
-  if(mapsUrl&&!isValidMapsUrl(mapsUrl)){showToast('Format link Maps tidak valid');return;}
-  const newLead={id:nextLeadId++,company,pic,pos:document.getElementById('nl-pos').value.trim(),phone,email:document.getElementById('nl-email').value.trim(),type:finalType,status:'',address:document.getElementById('nl-address').value.trim(),source:document.getElementById('nl-source').value,notes:document.getElementById('nl-notes').value.trim(),mapsUrl,addedBy:currentUser,addedDate:new Date().toISOString().slice(0,10),nextFollowup:null,nextAction:null,callLog:[],isNew:true};
-  LEADS_DATA.unshift(newLead);renderStats();setSyncStatus('pending','Mengirim leads baru...');
-  await postData({action:'addLead',...newLead});
-  setSyncStatus('ok','Leads baru tersimpan di Sheets');
-  showToast('Leads baru berhasil ditambahkan!');
-  setTimeout(()=>goBack('screen-home'),1200);
+function showToast(msg, type='') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast' + (type?' '+type:'');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
 }
-
-function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
 </script>
 </body>
 </html>
